@@ -19,14 +19,11 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./my_images/sample_class.png "Visualization"
+[image2]: ./my_images/sample_class2.png "Visualization"
+[image3]: ./my_images/sample_class3.png "Visualization"
+
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -42,18 +39,65 @@ You're reading it! and here is a link to my [project code](https://github.com/ud
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+I used the Numpy library to calculate a summary of statistics fo the traffic signs data set:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+Number of training examples = 34799
+Number of validation examples = 4410
+Number of testing examples = 12630
+Image data shape = (32, 32, 3)
+Number of classes = 43
+
+
+This is the code I've used:
+```
+### Replace each question mark with the appropriate value. 
+### Use python, pandas or numpy methods rather than hard coding the results
+import numpy as np
+# TODO: Number of training examples
+n_train = X_train.shape[0]
+
+# TODO: Number of validation examples
+n_validation =  X_valid.shape[0]
+
+# TODO: Number of testing examples.
+n_test =  X_test.shape[0]
+
+# TODO: What's the shape of an traffic sign image?
+image_shape =  X_train.shape[1:]
+
+# TODO: How many unique classes/labels there are in the dataset.
+n_classes = len(np.unique(y_train))
+
+print("Number of training examples =", n_train)
+print("Number of validation examples =", n_validation)
+print("Number of testing examples =", n_test)
+print("Image data shape =", image_shape)
+print("Number of classes =", n_classes)
+```
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+I've decided to calculate the number of samples of each class in each data set. I've used this code:
+
+```
+def show_samples_classes(title, y_data):
+    samples_of_each_class = [0]*n_classes
+    for y in y_data:
+        samples_of_each_class[y] = samples_of_each_class[y]+1
+
+    plt.ylabel('Samples')
+    plt.xlabel('Class')
+    plt.title("Qty of Samples by class in "+title)
+    plt.xticks(range(0,n_classes,2))
+    plt.bar(range(n_classes), samples_of_each_class)
+    plt.show()
+    
+show_samples_classes('train dataset', y_train)
+show_samples_classes('validation dataset', y_valid)
+show_samples_classes('test dataset', y_test)
+```
+
+To show these results:
 
 ![alt text][image1]
 
@@ -65,7 +109,6 @@ As a first step, I decided to convert the images to grayscale because ...
 
 Here is an example of a traffic sign image before and after grayscaling.
 
-![alt text][image2]
 
 As a last step, I normalized the image data because ...
 
@@ -75,7 +118,6 @@ To add more data to the the data set, I used the following techniques because ..
 
 Here is an example of an original image and an augmented image:
 
-![alt text][image3]
 
 The difference between the original data set and the augmented data set is the following ... 
 
@@ -128,8 +170,6 @@ If a well known architecture was chosen:
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
 
 The first image might be difficult to classify because ...
 
